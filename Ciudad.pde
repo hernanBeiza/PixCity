@@ -1,4 +1,5 @@
-String version = "0.0.1";
+String version = "0.0.2";
+
 int cuadraAncho = 50;
 int cuadraAlto = 50;
 int edificioAncho = 5;
