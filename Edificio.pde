@@ -15,7 +15,7 @@ class Edificio {
     this.y = y;
     this.w = w;
     this.h = h;
-    construir();
+    draw();
   }
 
   Edificio(int i, int x, int y) {
@@ -25,12 +25,12 @@ class Edificio {
     this.y = y; 
     this.w = int(random(5, 10));
     this.h = int(random(5, 10));
-    construir();
+    //println("Edificio: " + this.w*this.h+ "m2");
+    draw();
   }
 
-  public void construir() {
+  void draw() {
     pushMatrix();
-    println("Edificio: " + this.w*this.h+ "m2");
     translate(this.x, this.y);
     //stroke(255);
     fill(0);
@@ -48,4 +48,5 @@ class Edificio {
   public String toString() {
     return this.x+","+this.y+","+this.w+","+this.h;
   }
+  
 }
