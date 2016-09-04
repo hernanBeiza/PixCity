@@ -34,23 +34,11 @@ class Cuadra{
     for(int i = 0;i<totalX;i++){
       int miX = (edificioAncho+edificioSeparador)*i;
       for(int j = 0;j<totalY;j++){
-        int miY = (edificioAlto+edificioSeparador)*j;
-        
-        if(indice==0){
-          Edificio miEdificio = new Edificio(indice,miX,miY);
-          edificios.add(miEdificio);
-        } else{
-          
-          Edificio anterior = edificios.get(indice-1);
-          println(anterior.toString());
-          int posX = (anterior.x+edificioSeparador)*i;
-          int posY = (anterior.y+edificioSeparador)*j;          
-          Edificio miEdificio = new Edificio(indice,posX,posY);
-          edificios.add(miEdificio);
-
-        }
-        indice++;
+        int miY = (edificioAlto+edificioSeparador)*j;        
+        Edificio miEdificio = new Edificio(indice,miX,miY);
+        edificios.add(miEdificio);          
       }
+        indice++;
     }
     popMatrix();    
   }
