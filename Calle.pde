@@ -24,8 +24,12 @@ class Calle{
   }
   
   void poblar(){
-   for(int i =0;i<10;i++){     
-     Auto auto = new Auto(0,0,this.direccion);
+   for(int i =0;i<10;i++){   
+     int posY = 0;
+     if(this.direccion=="h"){
+       posY = 10;
+     }
+     Auto auto = new Auto(0,posY,this.direccion);
      autos.add(auto);
      auto.draw();
    }    

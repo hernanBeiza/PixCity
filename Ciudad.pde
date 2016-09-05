@@ -1,4 +1,4 @@
-String version = "0.0.5";
+String version = "0.0.6";
 
 int cuadraAncho = 50;
 int cuadraAlto = 50;
@@ -53,5 +53,5 @@ void draw(){
     Cuadra cuadra = cuadras.get(i);
     cuadra.draw();
   }
-  saveFrame("frames/"+version+"/"+version+"####.tif");  
+  //saveFrame("frames/"+version+"/"+version+"####.jpg");  
 }
