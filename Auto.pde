@@ -1,22 +1,27 @@
 class Auto {
-  
+  int index;
   float x;
   float y;
   int w;
   int h;
   float velocidad;
+  float velocidadMax;
   String direccion;
+  int sentido;
+  Calle calle;
   
-  Auto(){
-    
+  Auto(){    
     
   }
   
-  Auto(float x, float y, String direccion){
-    println("Auto",x,y,direccion);
+  Auto(int index,Calle calle,float x, float y, String direccion, int sentido){
+    //println("Auto: ",index,x,y,direccion);
+    this.index = index;
+    this.calle = calle;
     this.x = x;
     this.y = y;
     this.direccion = direccion;
+    this.sentido = sentido;
     iniciar();
   }
   
@@ -24,63 +29,106 @@ class Auto {
     //println("iniciar();");
     this.w = int(random(2,4));
     this.h = int(random(4,6));    
-    this.velocidad = random(1,3);  
+    this.velocidad = 0;//random(1,5);  
+    this.velocidadMax = random(1,10);//random(1,5);      
+    //this.sentido = int(random(1,3));
+    if(sentido==2){
+      this.x = calle.w;
+      rotate(radians(180));    
+    } 
+    
     construir();
   }
   
   void construir(){
     //println("construir();");
     pushMatrix();
-    noStroke();    
-    if(direccion=="h"){   
-      //Según el sentido, rotar anti horario o no
-      rotate(radians(-90));
-    }
+    noStroke();        
     fill(100);
     rect(0,0,this.w,this.h);        
-    //Gorrito Taxi
-    /*
-    fill(255,255,0);
-    rect(this.w/2-3,this.h/2-3,6,6);   
-    */
+    //Gorrito
+    //fill(255,255,0);
+    //rect(this.w/2-3,this.h/2-3,6,6);   
     //Luces
     fill(255,0,0);
-    rect(0,0,1,1);   
-    rect(this.w-1,0,1,1);   
+    rect(0,0,2,2);   
+    rect(this.w-2,0,2,2);   
     fill(255,255,0);
-    rect(0,this.h-1,1,1);   
-    rect(this.w-1,this.h-1,1,1);   
-    
+    rect(0,this.h-2,2,2);   
+    rect(this.w-2,this.h-2,2,2);       
     popMatrix();        
   }
-
-
+  
   void draw(){
     pushMatrix();
     translate(this.x,this.y);
-    if(direccion=="v"){   
-     this.y = this.y+this.velocidad;
-      if(this.y>height+this.h){
-        iniciar();
-        this.y = 0;
+    if(this.sentido==2){
+      rotate(radians(180));    
+    }
+
+    //Revisar posibles choques con otros wns 
+   if(this.index==0){
+      //println("Soy el primero: this.index:" + this.index);
+      this.velocidad+=0.1;
+    } else {      
+      Auto anterior;
+      if(sentido==1){
+        anterior = (Auto)calle.autos.get(this.index-1); 
+      } else {
+        anterior = (Auto)calle.autos2.get(this.index-1);              
       }
-      if(this.y+this.h<0){
-        this.y = height;
-        iniciar();
-      } 
+      //Choques
+      float d = dist(this.x, this.y, anterior.x,anterior.y);
+      //println("this.index: " + this.index + " anterior.index: " + anterior.index + " d: "+ d);
+      if(d<50){
+          //println("frenaR");
+          //println(toString());          
+          //float nuevaVelocidad = map(this.velocidad,1,10,0,otro.velocidad);
+          //this.velocidad = nuevaVelocidad;        
+          float easing = 0.2;
+          float targetX = anterior.velocidad;
+          float dx = targetX - this.velocidad;
+          this.velocidad += dx * easing;              
+      } else {
+        this.velocidad+=0.1;  
+      }
+    }
+
+    //Límites Velocidad
+    if(this.velocidad>=velocidadMax){
+      this.velocidad = velocidadMax;      
+    }
+    if(this.velocidad<0){
+      this.velocidad = 0;
+    }   
+    
+    //Bounds
+    if(this.sentido==1){
+      this.y += this.velocidad;        
     } else {
-      this.x = this.x+this.velocidad;
-      if(this.x>width+this.w){
-        iniciar();
-        this.x = 0;
-      }
-      if(this.x<0){
-        this.x = width;
-        iniciar();
-      }
-    }    
-    construir();
+      this.y -= this.velocidad;
+    }
+    println(velocidad);
+    if(this.y>height+this.h){
+      reset();
+      this.y = -200;
+      iniciar();
+    }
+    if(this.y+this.h<-200){
+      reset();
+      this.y = height;
+      iniciar();
+    }
+    construir();       
     popMatrix();
+  }
+  
+  void reset(){
+    calle.remove(this);
+  }
+  
+  String toString(){
+    return "index: " + this.index +  " x: " + this.x +" y: " + this.y +" velocidad: " + this.velocidad;
   }
   
 }

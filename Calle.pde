@@ -1,3 +1,4 @@
+
 class Calle{
   int index;
   int x;
@@ -5,8 +6,10 @@ class Calle{
   int w;
   int h;
   String direccion;
-  ArrayList <Auto> autos = new ArrayList();
   
+  ArrayList <Auto> autos = new ArrayList();
+  ArrayList <Auto> autos2 = new ArrayList();
+
   Calle(){
     
   }
@@ -19,37 +22,56 @@ class Calle{
     this.w = w;
     this.h = h; 
     this.direccion = direccion;
-    poblar();
-    draw();  
+    
+    //Sentido 1
+    for(int i =0;i<10;i++){   
+      Auto miAuto = new Auto(i,this,0,100*i,this.direccion,1);   
+      autos.add(miAuto);
+    }
+    //Sentido 2
+    for(int i =0;i<10;i++){   
+      Auto miAuto2 = new Auto(i,this,0,100*i,this.direccion,2);   
+      autos2.add(miAuto2);
+    }
+
   }
   
-  void poblar(){
-   for(int i =0;i<10;i++){   
-     int posY = 0;
-     if(this.direccion=="h"){
-       posY = 10;
-     }
-     Auto auto = new Auto(0,posY,this.direccion);
-     autos.add(auto);
-     auto.draw();
-   }    
-  }
   
   void draw(){
     pushMatrix();
-    translate(this.x,this.y);
-    //Debug
-    if(this.direccion=="v"){
-      fill(3);
-    } else {
-      fill(0);    
+    translate(this.x,this.y);    
+    if(this.direccion=="h"){
+      rotate(radians(-90));
     }
-    rect(0,0,this.w,this.h);    
+    //debug
+    //stroke(255,255,0);
+    //fill(0);
+    noStroke();
+    //stroke(255,255,0);
+    noFill();
+    rect(0,0,this.w,this.h);
     for(int i=0;i<autos.size();i++){
       Auto auto = autos.get(i);
+      auto.index = i;
+      auto.draw();
+    }   
+    for(int i=0;i<autos2.size();i++){
+      Auto auto = autos2.get(i);
+      auto.index = i;
       auto.draw();
     }
+    
     popMatrix();
+  }
+  
+  void remove(Auto auto){
+    if(auto.sentido==1){
+      autos.remove(auto.index);
+      autos.add(auto);
+    } else if(auto.sentido==2){
+      autos2.remove(auto.index);
+      autos2.add(auto);
+    }
   }
   
 }

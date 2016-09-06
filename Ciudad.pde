@@ -1,4 +1,4 @@
-String version = "0.0.6";
+String version = "0.0.7";
 
 int cuadraAncho = 50;
 int cuadraAlto = 50;
@@ -20,12 +20,14 @@ void setup(){
   //Calles
   for(int i =0;i<totalX;i++){
     int posX = (cuadraAncho+cuadraSeparador)*i;
-    int posY = (cuadraAlto+cuadraSeparador)*i;
+    int posY = (cuadraAlto+cuadraSeparador)*i+10;
     Calle miCalle = new Calle(i,posX,0,10,height,"v");
-    Calle miCalle2 = new Calle(i,0,posY,width,10,"h");
+    Calle miCalle2 = new Calle(i,0,posY,10,height,"h");
+
     calles.add(miCalle);
     calles.add(miCalle2);
   }
+  
   //Cuadras
   translate(cuadraSeparador,cuadraSeparador);
   int indice = 0;
@@ -43,7 +45,7 @@ void setup(){
 }
 
 void draw(){
-  background(255);  
+  background(0);  
   for(int i =0;i<calles.size();i++){
     Calle calle = calles.get(i);
     calle.draw();
@@ -53,5 +55,5 @@ void draw(){
     Cuadra cuadra = cuadras.get(i);
     cuadra.draw();
   }
-  //saveFrame("frames/"+version+"/"+version+"####.jpg");  
+  saveFrame("frames/"+version+"/"+version+"####.jpg");  
 }
