@@ -9,6 +9,8 @@ class Calle{
   
   ArrayList <Auto> autos = new ArrayList();
   ArrayList <Auto> autos2 = new ArrayList();
+  
+  ArrayList <Esquina> esquinas = new ArrayList();
 
   Calle(){
     
@@ -34,8 +36,21 @@ class Calle{
       autos2.add(miAuto2);
     }
 
+    //Esquinas
+    for(int i =0;i<11;i++){
+      int posX = 0;
+      int posY = (cuadraAlto+10)*i;    
+      boolean estado = true;
+      if(int(random(1,3))==1){
+        estado = true;
+      } else {
+        estado = false;
+      }
+      
+      Esquina esquina = new Esquina(i,posX,posY,estado);
+      esquinas.add(esquina);    
+    }
   }
-  
   
   void draw(){
     pushMatrix();
@@ -50,6 +65,14 @@ class Calle{
     //stroke(255,255,0);
     noFill();
     rect(0,0,this.w,this.h);
+    //Esquinas
+    /*
+    for(int i=0;i<esquinas.size();i++){
+      Esquina esquina = esquinas.get(i);
+      esquina.draw();
+    }
+    */
+    //Autos
     for(int i=0;i<autos.size();i++){
       Auto auto = autos.get(i);
       auto.index = i;
@@ -60,7 +83,6 @@ class Calle{
       auto.index = i;
       auto.draw();
     }
-    
     popMatrix();
   }
   

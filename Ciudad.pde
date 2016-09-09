@@ -1,21 +1,20 @@
-String version = "0.0.7";
+String version = "0.0.8";
 
 int cuadraAncho = 50;
 int cuadraAlto = 50;
 
-int cuadraSeparador = 10;//calle finalmente
+int cuadraSeparador = 10;
 
 ArrayList <Calle> calles = new ArrayList();
 ArrayList <Cuadra> cuadras = new ArrayList();
 
 void setup(){
   println("Ciudad " + version);
-  size(610,610);
-  
+  size(610,610);  
+  background(0);  
+
   int totalX = 600/(cuadraAncho);
   int totalY = 600/(cuadraAlto);
-  println(totalX,totalY);
-  background(0);  
   
   //Calles
   for(int i =0;i<totalX;i++){
@@ -55,5 +54,5 @@ void draw(){
     Cuadra cuadra = cuadras.get(i);
     cuadra.draw();
   }
-  saveFrame("frames/"+version+"/"+version+"####.jpg");  
+  //saveFrame("frames/"+version+"/"+version+"####.tif");  
 }
