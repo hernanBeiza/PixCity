@@ -66,12 +66,10 @@ class Calle{
     noFill();
     rect(0,0,this.w,this.h);
     //Esquinas
-    /*
     for(int i=0;i<esquinas.size();i++){
       Esquina esquina = esquinas.get(i);
       esquina.draw();
     }
-    */
     //Autos
     for(int i=0;i<autos.size();i++){
       Auto auto = autos.get(i);
