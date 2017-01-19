@@ -37,6 +37,7 @@ class Calle{
     }
 
     //Esquinas
+    /*
     for(int i =0;i<11;i++){
       int posX = 0;
       int posY = (cuadraAlto+10)*i;    
@@ -50,6 +51,28 @@ class Calle{
       Esquina esquina = new Esquina(i,posX,posY,estado);
       esquinas.add(esquina);    
     }
+    */
+    for(int i =0;i<11;i++){
+      int posX = 0;
+      int posY = (cuadraAlto+10)*i;    
+      boolean estado = true;
+      
+      if(this.direccion=="v"){
+        estado = true;
+      } else {
+        estado = false;
+      }
+      /*
+      if(int(random(1,3))==1){
+        estado = true;
+      } else {
+        estado = false;
+      }
+      */
+      
+      Esquina esquina = new Esquina(i,posX,posY,estado,this.direccion);
+      esquinas.add(esquina);    
+      }
   }
   
   void draw(){

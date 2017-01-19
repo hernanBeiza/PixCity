@@ -1,10 +1,10 @@
-
 class Esquina {
   
   int index;
   int x;
   int y;
   boolean estado;
+  String direccion;
   
   final int WAIT_TIME = (int) (5 * 1000); // 5 seconds
   int startTime = 0;
@@ -13,11 +13,12 @@ class Esquina {
     
   }
   
-  Esquina(int index, int posX, int posY, boolean estado){
+  Esquina(int index, int posX, int posY, boolean estado,String direccion){
     this.index = index;
     this.x = posX;
     this.y = posY;
     this.estado = estado;
+    this.direccion = direccion;
   }
   
   void draw(){
@@ -28,9 +29,11 @@ class Esquina {
       miColor = color(0,255,0);
     } else {
       miColor = color(255,0,0);
-    }
+    }    
     fill(miColor);
-    rect(0,0,10,10);
+    rect(0,-2,10,2);
+    rect(0,10,10,2);
+    //fill(255,0,0);
     //text(this.index,20,10);
     popMatrix();   
     controlSemaforo();
@@ -47,9 +50,12 @@ class Esquina {
         }
     }
   }
+
   
   boolean hasFinished() {
     return millis() - startTime > WAIT_TIME;
   }
+  
+  
   
 }
