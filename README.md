@@ -1,6 +1,6 @@
-# ciudad
+# PixCity
 
-Made with Processing
+City 2d from the top. Made with Processing
 
 ## Gifs
 
